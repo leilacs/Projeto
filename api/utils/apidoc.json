@@ -1,0 +1,34 @@
+{
+    "name": "API Intranet",
+    "version": "0.1.0",
+    "description": "API Intranet - Dígitro Tecnologia",
+    "title": "API Intranet - Dígitro Tecnologia",
+    "url": "/api/v1",
+    "sampleUrl": "https://intranet.localhost/api/v1",
+    "template": {
+        "forceLanguage": "en"
+    },
+    "order": [
+        "Infraestrutura",
+        "autentica",
+        "verificaToken",
+        "verificaUsuario",
+        "insereCodigoNovaSenha",
+        "verificaCodigoNovaSenha",
+        "removeCodigoNovaSenha",
+        "redefineSenha",
+        "Auditoria",
+        "Conta",
+        "buscarDadosConta",
+        "Contato",
+        "listaContatos",
+        "Produto",
+        "buscaEquipamentosRestritos",
+        "buscaNrSeriePrincipal",
+        "RAC",
+        "listaRacs",
+        "consultaRac",
+        "listaHistoricoRac",
+        "buscaDadosRacSSC"
+    ]
+}

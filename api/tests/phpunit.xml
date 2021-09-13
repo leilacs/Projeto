@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit convertErrorsToExceptions="false" convertNoticesToExceptions="false" convertWarningsToExceptions="false" verbose="false">
+    <logging>
+        <log type="junit" target="/home/app/tmp/unitreport-api.xml" />
+    </logging>
+</phpunit>

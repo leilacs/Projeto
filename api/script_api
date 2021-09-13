@@ -1,0 +1,112 @@
+---------------------------------------------------------------------
+----------------------------CLIENTE----------------------------------
+
+create table CLIENTE (
+ CD_CLIENTE int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ LOGIN varchar(100),
+ NOME varchar(150),
+ CPF varchar(20),
+ EMAIL varchar(150),
+ ENDERECO varchar(200),
+ SENHA varchar(20)
+);
+
+insert into cliente values (cd_cliente.nextval(), 'leila', 'Leila', '111.111.111-01', 'leila@teste.com', 'rua x', 'teste')
+
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" https://intranet.localhost/api/v1/getAllClientes
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"login": "aaaa", "nome": "bbbb", "cpf": "010.010.010-10", "email": "aaa@teste.com", "endereco": "rua aa", "senha": "teste123"}' https://intranet.localhost/api/v1/createCliente
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 5}' https://intranet.localhost/api/v1/getCliente
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 2, "login": "teste Leila", "nome": "Teste", "cpf": "010.111.010-10", "email": "teste@teste.com", "endereco": "rua Y", "senha": "teste123"}' https://intranet.localhost/api/v1/updateCliente
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 2}' https://intranet.localhost/api/v1/deleteCliente
+
+---------------------------------------------------------------------
+----------------------------FUNCIONARIO------------------------------
+
+create table FUNCIONARIO (
+ CD_FUNCIONARIO int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ LOGIN varchar(100),
+ NOME varchar(150),
+ CPF varchar(20),
+ EMAIL varchar(150),
+ ENDERECO varchar(200),
+ SENHA varchar(20)
+)
+
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"login": "ciclano", "nome": "Ciclano", "cpf": "222.444.333-10", "email": "ciclano@teste.com", "endereco": "rua xxx", "senha": "abacaxi"}' https://intranet.localhost/api/v1/createFuncionario
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" https://intranet.localhost/api/v1/getAllFuncionarios
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 4}' https://intranet.localhost/api/v1/getFuncionario
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 2, "login": "ciclano", "nome": "Ciclano", "cpf": "222.444.333-10", "email": "ciclano.silva@teste.com", "endereco": "rua xxx", "senha": "abacaxi"}' https://intranet.localhost/api/v1/updateFuncionario
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 1}' https://intranet.localhost/api/v1/deleteFuncionario
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 4}' https://intranet.localhost/api/v1/geraDocumentoFuncionario
+
+---------------------------------------------------------------------
+----------------------------EMPRESA----------------------------------
+
+create table EMPRESA (
+ CD_EMPRESA int(9) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ NOME varchar(150),
+ CNPJ varchar(20),
+ ENDERECO varchar(200) 
+);
+
+create table EMPRESA_FUNCIONARIO (
+ CD_EMPRESA int(9),
+ CD_FUNCIONARIO int(9)
+);
+
+alter table EMPRESA_FUNCIONARIO add(
+primary key (CD_EMPRESA, CD_FUNCIONARIO)
+);
+
+alter table EMPRESA_FUNCIONARIO add(
+foreign key (CD_FUNCIONARIO)
+references FUNCIONARIO (CD_FUNCIONARIO)
+);
+
+insert into EMPRESA_FUNCIONARIO values (1,3);
+insert into EMPRESA_FUNCIONARIO values (1,4);
+insert into EMPRESA_FUNCIONARIO values (2,2);
+insert into EMPRESA_FUNCIONARIO values (2,4);
+
+create table EMPRESA_CLIENTE (
+ CD_EMPRESA int(9),
+ CD_CLIENTE int(9)
+);
+
+alter table EMPRESA_CLIENTE add(
+primary key (CD_EMPRESA, CD_CLIENTE)
+);
+
+alter table EMPRESA_CLIENTE add(
+foreign key (CD_CLIENTE)
+references CLIENTE (CD_CLIENTE)
+);
+
+insert into EMPRESA_CLIENTE values (1,1);
+insert into EMPRESA_CLIENTE values (1,5);
+insert into EMPRESA_CLIENTE values (2,5);
+insert into EMPRESA_CLIENTE values (3,1);
+
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"nome": "Empresa X", "cnpj": "12.123.0001/01", "endereco": "Avenida Brasil"}' https://intranet.localhost/api/v1/createEmpresa
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"nome": "Empresa Y", "cnpj": "00.254.0001/01", "endereco": "Avenida lll"}' https://intranet.localhost/api/v1/createEmpresa
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" https://intranet.localhost/api/v1/getAllEmpresas
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 1}' https://intranet.localhost/api/v1/getEmpresa
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 2, "nome": "Empresa XX", "cnpj": "12.123.0001/01", "endereco": "Avenida Brasil1"}' https://intranet.localhost/api/v1/updateEmpresa
+
+curl -i -k -X POST -H "Content-Type: application/json" -H "Authorization: 1234" -d '{"id": 1}' https://intranet.localhost/api/v1/deleteEmpresa
